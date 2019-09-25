@@ -1,0 +1,13 @@
+@import '.././../../styles.scss';
+
+.single-fields {
+  box-sizing: border-box;
+  height: 100%;
+  width: 4vh;
+  border-bottom: .1px solid $red-3-rgba;
+  border-right: .1px solid $red-3-rgba;
+}
+
+.single-fields:hover {
+  background-color: $red-1-rgba;
+}

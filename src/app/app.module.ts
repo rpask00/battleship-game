@@ -3,10 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SplashScreenComponent } from './splash-screen/splash-screen.component';
+import { BatllefieldComponent } from './batllefield/batllefield.component';
+import { SingleFieldComponent } from './batllefield/single-field/single-field.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SplashScreenComponent,
+    BatllefieldComponent,
+    SingleFieldComponent
   ],
   imports: [
     BrowserModule,

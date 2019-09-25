@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+/* Color Theme Swatches in Hex */
+$red-1-hex: #8C3545;
+$purpledark-hex: #1C1C26;
+$yellow-hex: #D9805F;
+$red-2-hex: #731A06;
+$red-3-hex: #400601;
+
+/* Color Theme Swatches in RGBA */
+$red-1-rgba: rgba(140, 53, 69, 1);
+$purpledark-rgba: rgba(27, 27, 38, 1);
+$yellow-rgba: rgba(216, 127, 95, 1);
+$red-2-rgba: rgba(114, 25, 5, 1);
+$red-3-rgba: rgba(63, 6, 1, 1);
+
+/* Color Theme Swatches in HSLA */
+$red-1-hsla: hsla(348, 44, 37, 1);
+$purpledark-hsla: hsla(241, 16, 12, 1);
+$yellow-hsla: hsla(16, 61, 61, 1);
+$red-2-hsla: hsla(11, 90, 23, 1);
+$red-3-hsla: hsla(5, 96, 12, 1);
+
+body {
+  background-color: #1C1C26;
+}
