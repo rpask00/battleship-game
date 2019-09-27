@@ -10,9 +10,7 @@
     </div>
     <!-- Actual player space -->
     <div class="sea sea-player">
-      <div *ngFor='let letter of alphabetArr' class="row-fields">
-        <single-field *ngFor='let index of indexesArr' [fieldID]='letter + index'></single-field>
-      </div>
+      <single-field [cord]='index' *ngFor='let index of constIndexes'></single-field>
     </div>
   </div>
   <div class="battlefield">
@@ -26,9 +24,7 @@
     </div>
     <!-- Actual player space -->
     <div class="sea sea-enemy">
-      <div *ngFor='let letter of alphabetArr' class="row-fields">
-        <single-field *ngFor='let index of indexesArr'></single-field>
-      </div>
+      <single-field [cord]='index' *ngFor='let index of constIndexes'></single-field>
     </div>
   </div>
 </div>

@@ -4,33 +4,37 @@ export class Cord {
 }
 
 export class Ship {
-    cords: Cord[];
+    cords: Cord[] = [];
 
-    constructor(cords: Cord[]) {
-        this.cords = cords;
+    constructor(cords?: Cord[]) {
+        if (cords) this.cords = cords;
     }
     get lastCord() {
         return this.cords.slice(-1)[0]
     }
-
     get firstCord() {
         return this.cords.slice(0, 1)[0]
     }
 
-    get highestX() {
-        return this.cords.map(cord => cord.x).sort((a, b) => b - a)[0]
-    }
-    get highestY() {
-        return this.cords.map(cord => cord.y).sort((a, b) => b - a)[0]
-    }
-    get lowestX() {
-        return this.cords.map(cord => cord.x).sort((a, b) => b - a).reverse()[0]
-    }
-    get lowestY() {
-        return this.cords.map(cord => cord.x).sort((a, b) => b - a).reverse()[0]
+
+    clearCords() {
+        this.cords = []
     }
 
     addCord(cord: Cord) {
         this.cords.push(cord)
     }
+}
+
+export interface Ships {
+    ship4: Ship;
+    ship3a: Ship;
+    ship3b: Ship;
+    ship2a: Ship;
+    ship2b: Ship;
+    ship2c: Ship;
+    ship1a: Ship;
+    ship1b: Ship;
+    ship1c: Ship;
+    ship1d: Ship;
 }

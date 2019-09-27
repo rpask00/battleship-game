@@ -21,10 +21,12 @@
   position: absolute;
   width: 40vh;
   height: 40vh;
-  border-top: 1px solid $red-3-rgba;
-  border-left: 1px solid $red-3-rgba;
+  // border-top: 1px solid $red-3-rgba;
+  // border-left: 1px solid $red-3-rgba;
   bottom: 0;
   right: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .alphabet {
@@ -54,13 +56,6 @@
 .row-fields {
   box-sizing: border-box;
   width: 100%;
-  height:10%;
+  height: 10%;
   display: flex;
-}
-
-.single-fields {
-  box-sizing: border-box;
-  height: 100%;
-  width: 4vh;
-  border: 1px solid $red-3-rgba;
 }
