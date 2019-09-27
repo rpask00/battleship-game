@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'single-field',
@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleFieldComponent implements OnInit {
 
+  @Input('fieldID') fieldID: string;
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

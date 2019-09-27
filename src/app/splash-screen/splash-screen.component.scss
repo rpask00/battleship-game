@@ -1,0 +1,99 @@
+@import '../../styles.scss';
+
+.splash {
+  margin: auto auto;
+  width: 61vw;
+  display: flex;
+
+  h1 {
+    color: aliceblue;
+  }
+}
+
+.ship-set {
+  display: flex;
+}
+
+.tileset {
+  position: relative;
+  width: 30vh;
+  margin: 3vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.ship {
+  margin-left: 0vw;
+  border-radius: 2px;
+  opacity: .9;
+  margin: 10px;
+  background-color: $yellow-rgba;
+}
+
+.ship-4 {
+  width: 15.7vh;
+  height: 3.7vh;
+}
+
+.ship-3 {
+  width: 11.7vh;
+  height: 3.7vh;
+}
+
+.ship-2 {
+  width: 7.7vh;
+  height: 3.7vh;
+}
+
+.ship-1 {
+  width: 3.7vh;
+  height: 3.7vh;
+}
+
+.battlefield {
+  position: relative;
+  width: 44vh;
+  height: 44vh;
+  margin: 3vh;
+}
+
+.sea {
+  position: absolute;
+  width: 40vh;
+  height: 40vh;
+  border-top: 1px solid $red-3-rgba;
+  border-left: 1px solid $red-3-rgba;
+  bottom: 0;
+  right: 0;
+}
+
+.alphabet {
+  position: absolute;
+  right: 0;
+  width: 40vh;
+  display: flex;
+  justify-content: space-between
+}
+
+.single-sign {
+  color: $red-2-rgba;
+  flex-grow: 1;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.indexes {
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 40vh;
+}
+
+.row-fields {
+  box-sizing: border-box;
+  width: 100%;
+  height: 10%;
+  display: flex;
+}

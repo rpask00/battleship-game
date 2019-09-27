@@ -1,20 +1,25 @@
-<div class="main">
-  <div class="battlefield">
-    <!-- Alphabet row -->
-    <div class="alphabet">
-      <div class="single-sign" *ngFor='let letter of alphabetArr'>{{letter}}</div>
+<div class="splash">
+
+  <div class="tileset">
+    <h1>Deploy ships</h1>
+    <div class="ship ship-4"></div>
+    <div class="ship-set">
+      <div class="ship ship-3"></div>
     </div>
-    <!-- Indexes row -->
-    <div class="indexes">
-      <div class="single-sign" *ngFor='let index of indexesArr'>{{index}}</div>
+    <div class="ship ship-3"></div>
+    <div class="ship-set">
+      <div class="ship ship-2"></div>
+      <div class="ship ship-2"></div>
+      <div class="ship ship-2"></div>
     </div>
-    <!-- Actual player space -->
-    <div class="sea sea-player">
-      <div *ngFor='let letter of alphabetArr' class="row-fields">
-        <single-field *ngFor='let index of indexesArr'></single-field>
-      </div>
+    <div class="ship-set">
+      <div class="ship ship-1"></div>
+      <div class="ship ship-1"></div>
+      <div class="ship ship-1"></div>
+      <div class="ship ship-1"></div>
     </div>
   </div>
+
   <div class="battlefield">
     <!-- Alphabet row -->
     <div class="alphabet">
@@ -31,4 +36,5 @@
       </div>
     </div>
   </div>
+
 </div>

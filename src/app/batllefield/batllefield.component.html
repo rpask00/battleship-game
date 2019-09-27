@@ -11,7 +11,7 @@
     <!-- Actual player space -->
     <div class="sea sea-player">
       <div *ngFor='let letter of alphabetArr' class="row-fields">
-        <single-field *ngFor='let index of indexesArr'></single-field>
+        <single-field *ngFor='let index of indexesArr' [fieldID]='letter + index'></single-field>
       </div>
     </div>
   </div>
