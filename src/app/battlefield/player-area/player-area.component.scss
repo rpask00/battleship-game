@@ -1,0 +1,53 @@
+@import '../../../styles.scss';
+
+.sea {
+  position: absolute;
+  width: 40vh;
+  height: 40vh;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.battlefield {
+  position: relative;
+  min-width: 400px;
+  min-width: 44vh;
+  height: 44vh;
+}
+
+
+.alphabet {
+  position: absolute;
+  right: 0;
+  width: 40vh;
+  display: flex;
+  justify-content: space-between
+}
+
+.single-sign {
+  color: $red-2-rgba;
+  flex-grow: 1;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.indexes {
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 40vh;
+}
+
+@media (max-width: 1200px) {
+
+  .battlefield {
+    transform: scale(.8);
+    min-width: 390px;
+  }
+
+}

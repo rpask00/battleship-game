@@ -9,9 +9,12 @@ import { Cord } from 'src/app/models/Cord';
 export class SingleFieldComponent implements OnInit {
 
   @Input('cord') cord: Cord;
+  @Input('mergedShips') mergedShips: Cord[];
+  amIship: boolean;
   constructor() { }
 
   ngOnInit() {
-   }
+    this.amIship = this.mergedShips.findIndex(shipCord => shipCord.x == this.cord.x && shipCord.y == this.cord.y) !== -1
+  }
 
 }

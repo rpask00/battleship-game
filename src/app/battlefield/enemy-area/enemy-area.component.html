@@ -1,0 +1,14 @@
+  <!-- Alphabet row -->
+  <div class="battlefield">
+    <div class="alphabet">
+      <div class="single-sign" *ngFor='let letter of alphabetArr'>{{letter}}</div>
+    </div>
+    <!-- Indexes row -->
+    <div class="indexes">
+      <div class="single-sign" *ngFor='let index of indexesArr'>{{index}}</div>
+    </div>
+    <!-- Actual player space -->
+    <div class="sea sea-enemy">
+      <single-field [cord]='cord' [mergedShips]='mergedShips' *ngFor='let cord of cordsArr'></single-field>
+    </div>
+  </div>

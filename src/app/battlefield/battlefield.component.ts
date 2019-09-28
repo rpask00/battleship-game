@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Cord, Ship, Ships } from '../models/Cord';
 
 @Component({
-  selector: 'batllefield',
-  templateUrl: './batllefield.component.html',
-  styleUrls: ['./batllefield.component.scss']
+  selector: 'battlefield',
+  templateUrl: './battlefield.component.html',
+  styleUrls: ['./battlefield.component.scss']
 })
 export class BatllefieldComponent implements OnInit {
 
+
+  indexesArr: Number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  alphabetArr: String[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
   flatIndexes: Cord[] = [
     { x: 1, y: 1 }, { x: 1, y: 2 }, { x: 1, y: 3 }, { x: 1, y: 4 }, { x: 1, y: 5 }, { x: 1, y: 6 }, { x: 1, y: 7 }, { x: 1, y: 8 }, { x: 1, y: 9 }, { x: 1, y: 10 },
     { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 2, y: 4 }, { x: 2, y: 5 }, { x: 2, y: 6 }, { x: 2, y: 7 }, { x: 2, y: 8 }, { x: 2, y: 9 }, { x: 2, y: 10 },
@@ -21,25 +24,25 @@ export class BatllefieldComponent implements OnInit {
     { x: 10, y: 1 }, { x: 10, y: 2 }, { x: 10, y: 3 }, { x: 10, y: 4 }, { x: 10, y: 5 }, { x: 10, y: 6 }, { x: 10, y: 7 }, { x: 10, y: 8 }, { x: 10, y: 9 }, { x: 10, y: 10 },
   ];
   constIndexes: Cord[] = JSON.parse(JSON.stringify(this.flatIndexes))
-  shipIndexes: Cord[];
+  mergedShips: Cord[] = [];
   ships: Ships
   constructor() { }
 
-
-
   ngOnInit() {
-    this.ships.ship4 = this.generateShip(4)
-    this.ships.ship3a = this.generateShip(3)
-    this.ships.ship3b = this.generateShip(3)
-    this.ships.ship2a = this.generateShip(2)
-    this.ships.ship2b = this.generateShip(2)
-    this.ships.ship2c = this.generateShip(2)
-    this.ships.ship1a = this.generateShip(1)
-    this.ships.ship1b = this.generateShip(1)
-    this.ships.ship1c = this.generateShip(1)
-    this.ships.ship1d = this.generateShip(1)
+    this.ships = {
+      ship4: this.generateShip(4),
+      ship3a: this.generateShip(3),
+      ship3b: this.generateShip(3),
+      ship2a: this.generateShip(2),
+      ship2b: this.generateShip(2),
+      ship2c: this.generateShip(2),
+      ship1a: this.generateShip(1),
+      ship1b: this.generateShip(1),
+      ship1c: this.generateShip(1),
+      ship1d: this.generateShip(1),
+    }
     for (let shipName in this.ships) {
-      console.log(shipName)
+      this.mergedShips = this.mergedShips.concat(this.ships[shipName].cords)
     }
   }
 
@@ -72,7 +75,6 @@ export class BatllefieldComponent implements OnInit {
 
     do {
       ship.clearCords()
-      // while (!this.isFieldEmpty(index))
       index = { x: this.randN(0, 10 - shipLenght + 1), y: this.randN(0, 10 - shipLenght + 1) }
 
       ship.addCord(index)
@@ -91,12 +93,9 @@ export class BatllefieldComponent implements OnInit {
 
   private isFieldEmpty(cord: Cord) {
     if (!cord) return false
-
     return this.flatIndexes.findIndex(c => c.x == cord.x && c.y == cord.y) !== -1
   }
-
   isFieldaShip(cord: Cord) {
-
   }
 
   private randN(start?: number, end?: number): number {

@@ -1,0 +1,28 @@
+@import '../../styles.scss';
+
+.main {
+  // height: 50vh;
+  padding: 40px;
+  min-width: 450px;
+  max-width: 1000px;
+  width: 70vw;
+  margin: 15vh auto auto;
+  border: 5px solid $yellow-rgba;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+
+
+@media (max-width: 1200px) {
+  .main {
+    width: 45vw;
+    padding: 0;
+    margin: 20px auto auto;
+    height: 90vh;
+    align-content: center;
+  }
+
+
+}
