@@ -20,6 +20,10 @@ export class SplashScreenComponent implements OnInit, OnChanges {
     console.log(this.stattrack)
   }
 
+  startTheGame() {
+
+  }
+
   reDeploy() {
     this.stattrack++;
     this.shipSv.generateShips()
