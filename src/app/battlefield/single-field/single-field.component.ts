@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Cord } from 'src/app/models/Cord';
+import { ShipService } from 'src/app/services/ship.service';
 
 @Component({
   selector: 'single-field',
@@ -11,10 +12,12 @@ export class SingleFieldComponent implements OnInit {
   @Input('cord') cord: Cord;
   @Input('mergedShips') mergedShips: Cord[];
   amIship: boolean;
-  constructor() { }
+  constructor(
+    private shipSv: ShipService
+  ) { }
 
   ngOnInit() {
-    this.amIship = this.mergedShips.findIndex(shipCord => shipCord.x == this.cord.x && shipCord.y == this.cord.y) !== -1
+    this.amIship = this.shipSv.amIaShip(this.cord);
   }
 
 }

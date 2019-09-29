@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Cord } from 'src/app/models/Cord';
+import { ShipService } from 'src/app/services/ship.service';
 
 @Component({
   selector: 'player-area',
@@ -7,11 +8,16 @@ import { Cord } from 'src/app/models/Cord';
   styleUrls: ['./player-area.component.scss']
 })
 export class PlayerAreaComponent implements OnInit {
-  @Input('mergedShips') mergedShips: Cord[];
-  @Input('cordsArr') cordsArr: Cord[];
-  @Input('indexesArr') indexesArr: Number[];
-  @Input('alphabetArr') alphabetArr: String[];
-  constructor() { }
+  cordsArr: Cord[];
+  indexesArr: Number[];
+  alphabetArr: String[];
+  constructor(
+    private shipSv: ShipService
+  ) {
+    this.cordsArr = shipSv.cords;
+    this.alphabetArr = shipSv.alphabet;
+    this.indexesArr = shipSv.indexes;
+  }
 
   ngOnInit() {
   }
