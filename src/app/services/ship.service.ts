@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Cord, Ship, Ships } from '../models/Cord';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { switchMap, map, merge } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,8 @@ export class ShipService {
   private cordsArr: Cord[] = [];
   private cordsArrCopy: Cord[] = [];
   private ships: Ships;
+  private mergedShip = new BehaviorSubject([])
+
   constructor() {
     for (let x = 1; x < 11; x++)
       for (let y = 1; y < 11; y++) {
@@ -31,17 +35,16 @@ export class ShipService {
     return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   }
 
-  get mergedShips() {
+  private mergeShips() {
     let mergedShipsArr = []
     for (let shipName in this.ships) {
       mergedShipsArr = mergedShipsArr.concat(this.ships[shipName].cords)
     }
-    return mergedShipsArr;
+    return this.mergedShip.next(mergedShipsArr)
   }
 
   generateShips() {
     this.cordsArr = [].concat(this.cordsArrCopy);
-
     this.ships = {
       ship4: this.generateShip(4),
       ship3a: this.generateShip(3),
@@ -54,11 +57,17 @@ export class ShipService {
       ship1c: this.generateShip(1),
       ship1d: this.generateShip(1),
     }
-
+    this.mergeShips()
     return this.ships
   }
 
-
+  amIaShip(cord: Cord): Observable<number> {
+    return this.mergedShip.asObservable().pipe(
+      map(merged => {
+        return merged.findIndex(shipCord => shipCord.x == cord.x && shipCord.y == cord.y) !== -1 ? 1 : 2;
+      })
+    )
+  }
 
   private clearAreaAround(ship: Ship) {
     let cordsToDelete: Cord[] = [];
@@ -107,9 +116,7 @@ export class ShipService {
     if (!cord) return false
     return this.cordsArr.findIndex(c => c.x == cord.x && c.y == cord.y) !== -1
   }
-  amIaShip(cord: Cord) {
-    return this.mergedShips.findIndex(shipCord => shipCord.x == cord.x && shipCord.y == cord.y) !== -1
-  }
+
 
   private randN(start?: number, end?: number): number {
     start = start || 0;

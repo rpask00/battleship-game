@@ -14,7 +14,6 @@ export class BatllefieldComponent implements OnInit {
   alphabetArr: String[];
   cords: Cord[] = [];
   mergedShips: Cord[] = [];
-  ships: Ships
   constructor(
     private shipSv: ShipService
   ) {
@@ -24,8 +23,6 @@ export class BatllefieldComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ships = this.shipSv.generateShips()
-    console.log(this.ships)
     
   }
 

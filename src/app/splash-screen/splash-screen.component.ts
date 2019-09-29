@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Sortable } from '@shopify/draggable'
 import { ShipService } from '../services/ship.service';
 
@@ -7,7 +7,8 @@ import { ShipService } from '../services/ship.service';
   templateUrl: './splash-screen.component.html',
   styleUrls: ['./splash-screen.component.scss']
 })
-export class SplashScreenComponent implements OnInit {
+export class SplashScreenComponent implements OnInit, OnChanges {
+  stattrack: number = 0;
   constructor(
     private shipSv: ShipService
   ) {
@@ -15,5 +16,13 @@ export class SplashScreenComponent implements OnInit {
   }
 
   ngOnInit() { }
+  ngOnChanges() {
+    console.log(this.stattrack)
+  }
+
+  reDeploy() {
+    this.stattrack++;
+    this.shipSv.generateShips()
+  }
 
 }
