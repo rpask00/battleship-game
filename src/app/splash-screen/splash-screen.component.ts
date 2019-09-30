@@ -3,6 +3,7 @@ import { ShipService } from '../services/ship.service';
 import { Router } from '@angular/router';
 import { WebSocektService } from '../services/web-socekt.service';
 import { Observable } from 'rxjs';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'splash-screen',
@@ -24,8 +25,20 @@ export class SplashScreenComponent implements OnInit {
 
   ngOnInit() {
     this.webSocketSv.emit('creating-connection', this.shipSv.ships)
-    this.sockets$ = this.webSocketSv.listen('keys-share')
+    this.sockets$ = this.webSocketSv.listen('keys-share');
     this.me$ = this.webSocketSv.listen('me')
+
+    // this.webSocketSv.listen('keys-share').pipe(
+    //   switchMap(sockets => {
+    //     return this.webSocketSv.listen('me')
+    //   }),
+    //   map(data => {
+    //     console.log('data')
+    //     return data
+    //   })
+    // ).subscribe(d => {
+    //   console.log(d)
+    // })
   }
 
   startTheGame() {
