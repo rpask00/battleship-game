@@ -10,7 +10,7 @@ export class ShipService {
 
   private cordsArr: Cord[] = [];
   private cordsArrCopy: Cord[] = [];
-  private ships: Ships;
+  ships: Ships;
   private mergedShip = new BehaviorSubject([])
 
   constructor() {

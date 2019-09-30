@@ -2,6 +2,7 @@
 
 .main {
   // height: 50vh;
+  border-radius: 4px;
   padding: 40px;
   min-width: 450px;
   max-width: 1000px;
@@ -16,7 +17,6 @@
 .dashboard {
   width: 35%;
   height: 44vh;
-  justify-content: left;
   position: relative;
 }
 
@@ -26,7 +26,6 @@
   background-color: #fff;
   outline: none;
   width: 200px;
-  padding: 20px;
   border: none;
   border-radius: 2px;
   font-size: 20px;
@@ -35,21 +34,67 @@
 }
 
 .play {
-  bottom: 30%;
+  bottom: 10%;
   left: 50%;
 }
 
 .random {
+  font-size: 15px;
   bottom: 0;
   left: 50%;
-  width: 150px;
+  width: 90px;
 }
 
-.random:hover {
+.btn:hover {
   cursor: pointer;
   background-color: $yellow-rgba;
 }
 
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-height: 170px;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+li {
+  margin-right: 20px;
+  list-style-type: none;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.invite-btn {
+  margin-left: 10px;
+  font-family: 'Raleway', sans-serif;
+  background-color: transparent;
+  border: 2px solid lawngreen;
+  outline: none;
+  color: lawngreen;
+  transition: .2s;
+}
+
+.invite-btn:hover {
+  background-color: lawngreen;
+  color: $purpledark-rgba;
+  cursor: pointer;
+}
+
+
+h1 {
+
+  text-align: center;
+  color: green;
+  font-family: 'Raleway', sans-serif;
+}
+
+p {
+  color: aliceblue;
+  font-size: 12px;
+  text-align: center;
+}
 
 @media (max-width: 1200px) {
   .main {
@@ -65,6 +110,12 @@
     height: 44vh;
     justify-content: left;
     position: relative;
+  }
+
+
+  ul {
+    margin: auto auto;
+    width: 65%;
   }
 
 }

@@ -1,6 +1,13 @@
 <div class="splash">
   <div class="main">
     <div class="dashboard">
+      <h1>Ships the Game</h1>
+      <p *ngIf='me$ | async as me'>ID: {{me.mySocket}}</p>
+      <ul *ngIf='sockets$ | async as sockets'>
+        <li *ngFor='let socket of sockets.keys'>
+          {{socket}}<button (click)='invite(socket)' class='invite-btn'>Invite</button>
+        </li>
+      </ul>
       <button (click)='reDeploy()' class='btn random'>Randomize</button>
       <button (click)='startTheGame()' class='btn play'>Play</button>
     </div>
