@@ -1,0 +1,14 @@
+.panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: greenyellow;
+  padding: 30px;
+  text-align: center;
+}
+
+.btn {
+  padding: 10px;
+  margin: 5px;
+}

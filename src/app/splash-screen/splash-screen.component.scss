@@ -66,19 +66,23 @@ li {
   margin-bottom: 5px;
 }
 
+.danger {
+  color: red;
+}
+
 .invite-btn {
   border-radius: 2px;
   margin-left: 10px;
   font-family: 'Raleway', sans-serif;
   background-color: transparent;
-  border: 2px solid lawngreen;
+  border: 2px solid  $yellow-rgba;;
   outline: none;
-  color: lawngreen;
+  color:  $yellow-rgba;;
   transition: .2s;
 }
 
 .invite-btn:hover {
-  background-color: lawngreen;
+  background-color:  $yellow-rgba;;
   color: $purpledark-rgba;
   cursor: pointer;
 }

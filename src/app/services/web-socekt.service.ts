@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +24,12 @@ export class WebSocektService {
 
   emit(eventName: string, data: any) {
     this.socekt.emit(eventName, data);
+  }
+
+  get Me() {
+    return new Promise((resolve, reject) => {
+      this.listen('me').subscribe(me => resolve(me))
+    })
   }
 
 

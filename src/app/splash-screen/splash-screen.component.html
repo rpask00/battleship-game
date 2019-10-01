@@ -3,12 +3,14 @@
     <div class="dashboard" *ngIf='me$ | async as me'>
       <h1>Ships the Game</h1>
       <p>ID: {{me.mySocket}}</p>
-      <ul *ngIf='sockets$ | async as sockets'>
-        <li *ngFor='let socket of sockets.keys'>
+      <ul *ngIf='sockets$ | async as sockets; else noPlayersFound'>
+        <li *ngFor='let socket of sockets'>
           {{socket}}<button (click)='invite(socket)' class='invite-btn'><i class="fas fa-envelope"></i></button>
         </li>
       </ul>
-
+      <ng-template #noPlayersFound>
+        <p class='danger'>No players avalibe</p>
+      </ng-template>
 
       <button (click)='reDeploy()' class='btn random'> <i class="fas fa-dice"></i> </button>
       <button (click)='startTheGame()' class='btn play'>Play</button>
@@ -16,3 +18,5 @@
     <player-area></player-area>
   </div>
 </div>
+
+<invite-pop-up *ngIf='invitation$ | async as invitation' [invitation]='invitation'></invite-pop-up>
