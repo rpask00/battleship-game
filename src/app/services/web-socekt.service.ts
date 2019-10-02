@@ -33,4 +33,10 @@ export class WebSocektService {
   }
 
 
+  get socket$() {
+    this.listen('keys-share').subscribe(res => console.log(res, 'res'))
+    return this.listen('key-share')
+  }
+
+
 }

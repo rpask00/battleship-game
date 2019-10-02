@@ -5,6 +5,7 @@ import { WebSocektService } from '../services/web-socekt.service';
 import { Observable, forkJoin, of, timer } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { EnemyShipsService } from '../services/enemy-ships.service';
+import { GemplayService } from '../services/gemplay.service';
 
 @Component({
   selector: 'splash-screen',
@@ -13,21 +14,22 @@ import { EnemyShipsService } from '../services/enemy-ships.service';
 })
 export class SplashScreenComponent implements OnInit {
 
+  accept$: Observable<any>
   sockets$: Observable<any>;
   me$: Observable<any>;
   MePromise: Promise<any>;
   invitation$: Observable<any>
-  accept$: Observable<any>
   constructor(
     private shipSv: ShipService,
     private enemyShipSv: EnemyShipsService,
     private router: Router,
     private webSocketSv: WebSocektService,
+    private gemplaySv: GemplayService,
   ) {
     shipSv.generateShips()
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.webSocketSv.emit('creating-connection', this.shipSv.ships)
     this.me$ = this.webSocketSv.listen('me');
     this.invitation$ = this.webSocketSv.listen('invitation')
@@ -46,20 +48,19 @@ export class SplashScreenComponent implements OnInit {
       }))
 
     this.accept$.subscribe(accept => {
-      console.log(accept)
-      this.enemyShipSv.uploadEnemyShips(accept.ships)
-      this.router.navigate(['play'])
+      this.gemplaySv.setEnemyId(accept.addressee);
+      this.enemyShipSv.uploadEnemyShips(accept.ships);
+      this.router.navigate(['play']);
     })
-
 
   }
 
   startTheGame() {
-    this.router.navigate(['/play'])
+    this.router.navigate(['/play']);
   }
 
   reDeploy() {
-    this.shipSv.generateShips()
+    this.shipSv.generateShips();
   }
 
   invite(socket: string) {
@@ -70,7 +71,7 @@ export class SplashScreenComponent implements OnInit {
         sender: mySocket,
         ships: this.shipSv.ships
       })
-    })
+    });
   }
 
 }

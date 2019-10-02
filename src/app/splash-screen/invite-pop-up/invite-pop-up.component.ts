@@ -4,6 +4,7 @@ import { Ships } from 'src/app/models/Cord';
 import { ShipService } from 'src/app/services/ship.service';
 import { EnemyShipsService } from 'src/app/services/enemy-ships.service';
 import { Router } from '@angular/router';
+import { GemplayService } from 'src/app/services/gemplay.service';
 
 @Component({
   selector: 'invite-pop-up',
@@ -18,20 +19,22 @@ export class InvitePopUpComponent implements OnInit {
     private webSocketSv: WebSocektService,
     private shipSv: ShipService,
     private enemyShipSv: EnemyShipsService,
-    private router: Router
+    private router: Router,
+    private gemplaySv: GemplayService
   ) { }
 
   ngOnInit() {
   }
 
   acceptInvitation() {
-    this.enemyShipSv.uploadEnemyShips(this.invitation.ships)
-    this.webSocketSv.emit('accept', Object.assign({ ships: this.ships }, this.invitation))
-    this.router.navigate(['play'])
+    this.gemplaySv.setEnemyId(this.invitation.sender)
+    this.enemyShipSv.uploadEnemyShips(this.invitation.ships);
+    this.webSocketSv.emit('accept', Object.assign({ ships: this.ships }, this.invitation));
+    this.router.navigate(['play']);
   }
 
   rejectInvitation() {
-    this.webSocketSv.emit('reject', { me: this.invitation.addressee })
+    this.webSocketSv.emit('reject', { me: this.invitation.addressee });
   }
 
 }
