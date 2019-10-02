@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { WebSocektService } from '../services/web-socekt.service';
 import { Observable, forkJoin, of, timer } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
+import { EnemyShipsService } from '../services/enemy-ships.service';
 
 @Component({
   selector: 'splash-screen',
@@ -16,10 +17,12 @@ export class SplashScreenComponent implements OnInit {
   me$: Observable<any>;
   MePromise: Promise<any>;
   invitation$: Observable<any>
+  accept$: Observable<any>
   constructor(
     private shipSv: ShipService,
+    private enemyShipSv: EnemyShipsService,
     private router: Router,
-    private webSocketSv: WebSocektService
+    private webSocketSv: WebSocektService,
   ) {
     shipSv.generateShips()
   }
@@ -27,6 +30,8 @@ export class SplashScreenComponent implements OnInit {
   async ngOnInit() {
     this.webSocketSv.emit('creating-connection', this.shipSv.ships)
     this.me$ = this.webSocketSv.listen('me');
+    this.invitation$ = this.webSocketSv.listen('invitation')
+    this.accept$ = this.webSocketSv.listen('onAccept')
 
     this.MePromise = this.webSocketSv.Me;
     // filtration sockets thats differ from my socket
@@ -38,10 +43,14 @@ export class SplashScreenComponent implements OnInit {
         let keys = (arr[1] as any).keys;
         let me = (arr[0] as any).mySocket;
         return keys.filter(s => s != me)
-      })
-    )
+      }))
 
-    this.invitation$ = this.webSocketSv.listen('invitation')
+    this.accept$.subscribe(accept => {
+      console.log(accept)
+      this.enemyShipSv.uploadEnemyShips(accept.ships)
+      this.router.navigate(['play'])
+    })
+
 
   }
 
@@ -58,7 +67,8 @@ export class SplashScreenComponent implements OnInit {
       const { mySocket } = me;
       this.webSocketSv.emit('invite', {
         addressee: socket,
-        sender: mySocket
+        sender: mySocket,
+        ships: this.shipSv.ships
       })
     })
   }

@@ -1,0 +1,29 @@
+@import '../.././../../styles.scss';
+
+
+.single-fields {
+  box-sizing: border-box;
+  height: 4vh;
+  width: 4vh;
+  border: 1px solid $red-3-rgba;
+}
+
+
+.single-fields:hover {
+  background-color: $red-1-rgba;
+}
+
+.ship {
+  background-color: green;
+}
+
+
+
+@media (max-width: 1085px) {
+  .single-fields {
+    box-sizing: border-box;
+    height: 4vh;
+    width: 4vh;
+    border: 1px solid $red-3-rgba;
+  }
+}
