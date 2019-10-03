@@ -1,12 +1,20 @@
 @import '../../styles.scss';
 
+.timer {
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  margin: 8vh auto auto;
+  font-size: 2rem;
+}
+
 .main {
   // height: 50vh;
   padding: 40px;
   min-width: 450px;
   max-width: 1000px;
   width: 70vw;
-  margin: 15vh auto auto;
+  margin: 7vh auto auto;
   border: 5px solid $yellow-rgba;
   display: flex;
   flex-wrap: wrap;
@@ -22,6 +30,14 @@
     margin: 20px auto auto;
     height: 90vh;
     align-content: center;
+  }
+
+  .timer {
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    margin: 1vh auto auto;
+    font-size: 1.5rem;
   }
 
 

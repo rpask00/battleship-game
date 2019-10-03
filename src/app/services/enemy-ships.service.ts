@@ -11,6 +11,7 @@ export class EnemyShipsService {
 
   private cordsArr: Cord[] = [];
   enemyShips = new BehaviorSubject<Ships>(null);
+  hitmarks = new BehaviorSubject([]);
   private mergedShip = new BehaviorSubject([])
 
   constructor(
@@ -39,7 +40,7 @@ export class EnemyShipsService {
   }
 
   amIaShip(cord: Cord): Observable<number> {
-    return this.mergedShip.asObservable().pipe(
+    return this.hitmarks.asObservable().pipe(
       map(merged => {
         return merged.findIndex(shipCord => shipCord.x == cord.x && shipCord.y == cord.y) !== -1 ? 1 : 2;
       })

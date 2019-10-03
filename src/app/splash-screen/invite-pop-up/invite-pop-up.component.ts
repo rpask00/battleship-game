@@ -24,12 +24,13 @@ export class InvitePopUpComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.invitation)
   }
 
   acceptInvitation() {
     this.gemplaySv.setEnemyId(this.invitation.sender)
     this.enemyShipSv.uploadEnemyShips(this.invitation.ships);
-    this.webSocketSv.emit('accept', Object.assign({ ships: this.ships }, this.invitation));
+    this.webSocketSv.emit('accept', Object.assign(this.invitation, { ships: this.ships }));
     this.router.navigate(['play']);
   }
 
