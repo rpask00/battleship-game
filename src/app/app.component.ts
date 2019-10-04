@@ -11,16 +11,16 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
 
   connectionSub: Subscription;
-  connectionWithEnemy: Observable<string>;
+  enemyID: Observable<string>;
   constructor(
     private gemplaySv: GemplayService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.connectionWithEnemy = this.gemplaySv.enemyID$;
+    this.enemyID = this.gemplaySv.enemyID$;
 
-    this.connectionWithEnemy.subscribe(id => {
+    this.enemyID.subscribe(id => {
       if (id) this.createConnection(id)
     })
   }

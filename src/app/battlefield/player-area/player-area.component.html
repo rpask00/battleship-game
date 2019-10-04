@@ -1,5 +1,5 @@
   <!-- Alphabet row -->
-  <div class="battlefield">
+  <div class="battlefield" *ngIf='imt$ | async as imt' [ngClass]="{'imt':(imt===1)}">
     <div class="alphabet">
       <div class="single-sign" *ngFor='let letter of alphabetArr'>{{letter}}</div>
     </div>
@@ -9,6 +9,6 @@
     </div>
     <!-- Actual player space -->
     <div class="sea sea-enemy">
-      <single-field [cord]='cord' *ngFor='let cord of cordsArr'></single-field>
+      <single-field [cord]='cord' [imt]='imt' *ngFor='let cord of cordsArr'></single-field>
     </div>
   </div>

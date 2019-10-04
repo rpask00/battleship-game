@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 export class SingleFieldComponent implements OnInit, OnChanges {
 
   @Input('cord') cord: Cord;
+  @Input('imt') imt: number;
+
   amIship: Observable<number>;
   constructor(
     private shipSv: ShipService
@@ -22,4 +24,6 @@ export class SingleFieldComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.amIship = this.shipSv.amIaShip(this.cord)
   }
+
+
 }
