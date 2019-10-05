@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Cord, Ship, Ships } from '../models/Cord';
 import { Observable, of, BehaviorSubject } from 'rxjs';
-import { switchMap, map, merge } from 'rxjs/operators';
+import { switchMap, map, merge, take } from 'rxjs/operators';
+import { WebSocektService } from './web-socekt.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +11,20 @@ export class ShipService {
 
   private cordsArr: Cord[] = [];
   private cordsArrCopy: Cord[] = [];
+  myId: string;
   ships: Ships;
-  private mergedShip = new BehaviorSubject([])
+  private mergedShips
+   = new BehaviorSubject([])
 
-  constructor() {
+  constructor(
+    private webSocketSv: WebSocektService
+  ) {
+    webSocketSv.listen('me').pipe(take(1)).subscribe((id: any) => this.myId = id.mySocket)
+
     for (let x = 1; x < 11; x++)
       for (let y = 1; y < 11; y++) {
         this.cordsArr.push({ x, y });
         this.cordsArrCopy.push({ x, y });
-
       }
   }
 
@@ -40,7 +46,8 @@ export class ShipService {
     for (let shipName in this.ships) {
       mergedShipsArr = mergedShipsArr.concat(this.ships[shipName].cords)
     }
-    return this.mergedShip.next(mergedShipsArr)
+    return this.mergedShips
+    .next(mergedShipsArr)
   }
 
   generateShips() {
@@ -62,7 +69,8 @@ export class ShipService {
   }
 
   amIaShip(cord: Cord): Observable<number> {
-    return this.mergedShip.asObservable().pipe(
+    return this.mergedShips
+    .asObservable().pipe(
       map(merged => {
         return merged.findIndex(shipCord => shipCord.x == cord.x && shipCord.y == cord.y) !== -1 ? 1 : 2;
       })
@@ -88,6 +96,18 @@ export class ShipService {
       if (indexOfCordToDelete > -1)
         this.cordsArr.splice(indexOfCordToDelete, 1)
     })
+  }
+
+  amIHit(cord: Cord) {
+    return this.mergedShips.asObservable().pipe(
+      take(1),
+      map(merged => {
+        // 5 is hit
+        // 6 is not hit
+        return merged.findIndex(shipCord => shipCord.x == cord.x && shipCord.y == cord.y) === -1 ? 5 : 6;
+      })
+    )
+
   }
 
 

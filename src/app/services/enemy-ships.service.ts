@@ -11,6 +11,7 @@ export class EnemyShipsService {
 
   private cordsArr: Cord[] = [];
   enemyShips = new BehaviorSubject<Ships>(null);
+  enemyID$ = new BehaviorSubject('');
   hitmarks = new BehaviorSubject([]);
   private mergedShips = new BehaviorSubject([])
 
@@ -31,21 +32,6 @@ export class EnemyShipsService {
         return this.mergedShips.next(mergedShipsArr)
       }
     })
-  }
-
-  didIhit$(cord: Cord) {
-    this.hitmarks.asObservable().pipe(
-      tap(marks => this.hitmarks.next(marks.concat([cord])))
-    )
-    return this.mergedShips.asObservable().pipe(
-      take(1),
-      map(merged => {
-        // 5 is hit
-        // 6 is not hit
-        return merged.findIndex(shipCord => shipCord.x == cord.x && shipCord.y == cord.y) === -1 ? 5 : 6;
-      })
-    )
-
   }
 
   amIactive$(cord: Cord) {

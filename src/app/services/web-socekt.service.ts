@@ -7,7 +7,7 @@ import { Observable, forkJoin } from 'rxjs';
 })
 export class WebSocektService {
 
-  socekt: any;
+  private socekt: any;
   readonly url: string = 'http://localhost:3000/';
 
   constructor() {

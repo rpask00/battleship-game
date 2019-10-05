@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { GemplayService } from './services/gemplay.service';
 import { Router } from '@angular/router';
+import { EnemyShipsService } from './services/enemy-ships.service';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +15,12 @@ export class AppComponent implements OnInit {
   enemyID: Observable<string>;
   constructor(
     private gemplaySv: GemplayService,
-    private router: Router
+    private router: Router,
+    private enemySv: EnemyShipsService
   ) { }
 
   ngOnInit() {
-    this.enemyID = this.gemplaySv.enemyID$;
+    this.enemyID = this.enemySv.enemyID$.asObservable();
 
     this.enemyID.subscribe(id => {
       if (id) this.createConnection(id)

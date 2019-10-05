@@ -1,5 +1,5 @@
   <!-- Alphabet row -->
-  <div class="battlefield" *ngIf='imt$ | async as imt' [ngClass]="{'imt':(imt===2)}">
+  <div class="battlefield" *ngIf='imt$ | async as imt' [ngClass]="{'imt':(imt===1)}">
     <div class="alphabet">
       <div class="single-sign" *ngFor='let letter of alphabetArr'>{{letter}}</div>
     </div>

@@ -22,7 +22,6 @@ export class EnemyFieldComponent implements OnInit {
     private gameplaySv: GemplayService
   ) {
 
-    gameplaySv.playersID.subscribe(console.log)
   }
   /*
       3 is active
