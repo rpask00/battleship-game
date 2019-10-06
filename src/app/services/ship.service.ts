@@ -28,12 +28,18 @@ export class ShipService {
       }
   }
 
-  getHit = (cord: Cord): Observable<boolean> => {
-    this.hitsssss.asObservable().pipe(take(1)).subscribe(hits => this.hitsssss.next(hits.concat([cord])))
+  getHit = (cordsToDelete: Cord[]): Observable<boolean> => {
+    this.hitsssss.asObservable().pipe(take(1)).subscribe(hits => this.hitsssss.next(hits.concat(cordsToDelete)))
 
-    return this.mergedShipsObs.asObservable().pipe(
-      map(merged => merged.findIndex(shipCord => shipCord.x == cord.x && shipCord.y == cord.y) !== -1)
-    )
+    if (cordsToDelete.length == 1) {
+      let cord = cordsToDelete[0]
+      return this.mergedShipsObs.asObservable().pipe(
+        map(merged => merged.findIndex(shipCord => shipCord.x == cord.x && shipCord.y == cord.y) !== -1)
+      )
+    } else {
+      return of(true)
+    }
+
   }
 
   get cords() {
@@ -75,7 +81,7 @@ export class ShipService {
     this.mergedShipsObs.next(mergedShipsArr)
   }
 
-  private clearAreaAround(ship: Ship) {
+  getCordsToDelete(ship: Ship) {
     let cordsToDelete: Cord[] = [];
     ship.cords.forEach(cord => {
       for (let x = -1; x < 2; x++) {
@@ -86,6 +92,13 @@ export class ShipService {
         }
       }
     })
+
+    return cordsToDelete;
+  }
+
+
+  private clearAreaAround(ship: Ship) {
+    let cordsToDelete: Cord[] = this.getCordsToDelete(ship)
 
     cordsToDelete.forEach(cord => {
       let indexOfCordToDelete = this.cordsArr.findIndex(cordOrigin => {

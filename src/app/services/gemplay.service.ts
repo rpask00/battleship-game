@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { WebSocektService } from './web-socekt.service';
 import { map, take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
-import { Cord } from '../models/Cord';
+import { Cord, Ship } from '../models/Cord';
 import { EnemyShipsService } from './enemy-ships.service';
 import { ShipService } from './ship.service';
 
@@ -22,15 +22,11 @@ export class GemplayService {
       this.isMyTour.next(imt);
     })
 
-    webSocketSv.listen('get-hit').subscribe((cord: Cord) => {
-      shipSv.getHit(cord).pipe(
+    webSocketSv.listen('get-hit').subscribe((cordsToDelete: Cord[]) => {
+      shipSv.getHit(cordsToDelete).pipe(
         take(1)
       ).subscribe(hit => {
-        if (hit) {
-          this.isMyTour.next(2);
-        } else {
-          this.isMyTour.next(1);
-        }
+        this.isMyTour.next(hit ? 2 : 1);
       })
     })
   }
@@ -38,9 +34,19 @@ export class GemplayService {
 
   salva(cord: Cord) {
     this.enemySv.enemyID$.pipe(take(1)).subscribe(eID => {
-      this.webSocketSv.emit('place-hit', { cord, attacker: this.shipSv.myId, defender: eID })
 
-      this.enemySv.fire(cord).pipe(take(1)).subscribe(hit => this.isMyTour.next(hit ? 1 : 2))
+      this.enemySv.fire(cord).pipe(take(1)).subscribe((hitOrShip: boolean | Ship) => {
+
+        let cordsToDelete = [cord]
+
+        if (hitOrShip !== true && hitOrShip !== false)
+          cordsToDelete = this.shipSv.getCordsToDelete(hitOrShip)
+
+
+        this.webSocketSv.emit('place-hit', { cordsToDelete, attacker: this.shipSv.myId, defender: eID })
+
+        this.isMyTour.next(hitOrShip ? 1 : 2)
+      })
     })
 
   }
