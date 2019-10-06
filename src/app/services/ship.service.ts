@@ -11,16 +11,16 @@ export class ShipService {
 
   private cordsArr: Cord[] = [];
   private cordsArrCopy: Cord[] = [];
+  mergedShipsObs = new BehaviorSubject([]);
+  hitsssss = new BehaviorSubject([])
   myId: string;
   ships: Ships;
-  private mergedShips
-   = new BehaviorSubject([])
+
 
   constructor(
     private webSocketSv: WebSocektService
   ) {
     webSocketSv.listen('me').pipe(take(1)).subscribe((id: any) => this.myId = id.mySocket)
-
     for (let x = 1; x < 11; x++)
       for (let y = 1; y < 11; y++) {
         this.cordsArr.push({ x, y });
@@ -28,6 +28,13 @@ export class ShipService {
       }
   }
 
+  getHit = (cord: Cord): Observable<boolean> => {
+    this.hitsssss.asObservable().pipe(take(1)).subscribe(hits => this.hitsssss.next(hits.concat([cord])))
+
+    return this.mergedShipsObs.asObservable().pipe(
+      map(merged => merged.findIndex(shipCord => shipCord.x == cord.x && shipCord.y == cord.y) !== -1)
+    )
+  }
 
   get cords() {
     return this.cordsArrCopy;
@@ -41,16 +48,8 @@ export class ShipService {
     return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   }
 
-  private mergeShips() {
-    let mergedShipsArr = []
-    for (let shipName in this.ships) {
-      mergedShipsArr = mergedShipsArr.concat(this.ships[shipName].cords)
-    }
-    return this.mergedShips
-    .next(mergedShipsArr)
-  }
-
   generateShips() {
+    this.hitsssss.next([])
     this.cordsArr = [].concat(this.cordsArrCopy);
     this.ships = {
       ship4: this.generateShip(4),
@@ -68,13 +67,12 @@ export class ShipService {
     return this.ships
   }
 
-  amIaShip(cord: Cord): Observable<number> {
-    return this.mergedShips
-    .asObservable().pipe(
-      map(merged => {
-        return merged.findIndex(shipCord => shipCord.x == cord.x && shipCord.y == cord.y) !== -1 ? 1 : 2;
-      })
-    )
+  private mergeShips() {
+    let mergedShipsArr = []
+    for (let shipName in this.ships) {
+      mergedShipsArr = mergedShipsArr.concat(this.ships[shipName].cords)
+    }
+    this.mergedShipsObs.next(mergedShipsArr)
   }
 
   private clearAreaAround(ship: Ship) {
@@ -98,18 +96,6 @@ export class ShipService {
     })
   }
 
-  amIHit(cord: Cord) {
-    return this.mergedShips.asObservable().pipe(
-      take(1),
-      map(merged => {
-        // 5 is hit
-        // 6 is not hit
-        return merged.findIndex(shipCord => shipCord.x == cord.x && shipCord.y == cord.y) === -1 ? 5 : 6;
-      })
-    )
-
-  }
-
 
   private generateShip(shipLenght: number) {
     let isVertical = Math.random() < 0.5;
@@ -128,6 +114,7 @@ export class ShipService {
           ship.addCord({ x: ship.lastCord.x + 1, y: index.y })
       }
     } while (ship.cords.map(this.isFieldEmpty.bind(this)).indexOf(false) !== -1)
+
     this.clearAreaAround(ship)
     return ship
   }

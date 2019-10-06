@@ -24,7 +24,6 @@ export class PlayerAreaComponent implements OnInit {
     this.imt$ = gameplaySv.isMyTour$;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

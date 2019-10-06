@@ -23,9 +23,7 @@ export class InvitePopUpComponent implements OnInit {
     private gemplaySv: GemplayService
   ) { }
 
-  ngOnInit() {
-    console.log(this.invitation)
-  }
+  ngOnInit() { }
 
   acceptInvitation() {
     this.gemplaySv.setEnemyId(this.invitation.sender)

@@ -1,1 +1,2 @@
-<div *ngIf='amIActive$ | async as ama' [ngClass]="{'ship': ama == 1,  'empty':ama==2 }" class="single-fields" (click)='salva(ama)'></div>
+<div *ngIf='typeOfField$ | async as ama' [ngClass]="{'ship': ama == 1,  'empty':ama==2 }" class="single-fields"
+  (click)='salva(ama)'></div>
