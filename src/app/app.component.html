@@ -1,1 +1,3 @@
 <router-outlet></router-outlet>
+<game-over-popup *ngIf='didIwin$ | async' [win]='true'></game-over-popup>
+<game-over-popup *ngIf='didIlose$ | async' [win]='false'></game-over-popup>

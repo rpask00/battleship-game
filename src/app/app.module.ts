@@ -10,6 +10,7 @@ import { PlayerAreaComponent } from './battlefield/player-area/player-area.compo
 import { EnemyAreaComponent } from './battlefield/enemy-area/enemy-area.component';
 import { InvitePopUpComponent } from './splash-screen/invite-pop-up/invite-pop-up.component';
 import { EnemyFieldComponent } from './battlefield/enemy-area/enemy-field/enemy-field.component';
+import { GameOverPopupComponent } from './game-over-popup/game-over-popup.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { EnemyFieldComponent } from './battlefield/enemy-area/enemy-field/enemy-
     EnemyAreaComponent,
     InvitePopUpComponent,
     EnemyFieldComponent,
+    GameOverPopupComponent,
   ],
   imports: [
     BrowserModule,

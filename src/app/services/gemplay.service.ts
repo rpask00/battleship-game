@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { WebSocektService } from './web-socekt.service';
-import { map, take } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { map, take, mergeMap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Cord, Ship } from '../models/Cord';
 import { EnemyShipsService } from './enemy-ships.service';
 import { ShipService } from './ship.service';
@@ -29,6 +29,7 @@ export class GemplayService {
         this.isMyTour.next(hit ? 2 : 1);
       })
     })
+
   }
 
 
@@ -63,6 +64,23 @@ export class GemplayService {
     return this.webSocketSv.listen('keys-share').pipe(
       map((sockets: { keys: string[] }) => {
         return sockets.keys.includes(id)
+      })
+    )
+  }
+
+  isGameOver$(): Observable<boolean> {
+    return this.shipSv.hitsssss.asObservable().pipe(
+      mergeMap(hits => {
+        return this.shipSv.mergedShipsObs.asObservable().pipe(
+          map(merged => {
+            hits = hits.map(hit => hit.x + '' + hit.y)
+            merged = merged.map(cord => cord.x + '' + cord.y)
+            let isgameOver = []
+            merged.forEach(m => isgameOver.push(hits.findIndex(h => h == m)))
+
+            return isgameOver.indexOf(-1) == -1
+          })
+        )
       })
     )
   }
