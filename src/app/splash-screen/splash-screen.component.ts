@@ -3,7 +3,7 @@ import { ShipService } from '../services/ship.service';
 import { Router } from '@angular/router';
 import { WebSocektService } from '../services/web-socekt.service';
 import { Observable, forkJoin, of, timer } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, mergeMap } from 'rxjs/operators';
 import { EnemyShipsService } from '../services/enemy-ships.service';
 import { GemplayService } from '../services/gemplay.service';
 
@@ -46,6 +46,7 @@ export class SplashScreenComponent implements OnInit {
         let me = (arr[0] as any).mySocket;
         return keys.filter(s => s != me)
       }))
+
 
     this.accept$.subscribe(accept => {
       this.gemplaySv.setEnemyId(accept.addressee);

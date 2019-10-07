@@ -11,7 +11,7 @@ import { ShipService } from './ship.service';
 })
 export class GemplayService {
 
-  private isMyTour = new BehaviorSubject(2);
+  private isMyTour = new BehaviorSubject(3);
 
   constructor(
     private webSocketSv: WebSocektService,

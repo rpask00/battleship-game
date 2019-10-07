@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'game-over-popup',
@@ -7,9 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class GameOverPopupComponent implements OnInit {
   @Input('win') win: boolean;
-  constructor() { }
+  
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
 
+  dissmis() {
+    this.router.navigate(['home'])
+  }
 }
