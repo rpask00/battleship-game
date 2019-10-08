@@ -8,7 +8,7 @@ import { Observable, forkJoin } from 'rxjs';
 export class WebSocektService {
 
   private socekt: any;
-  readonly url: string = 'http://localhost:3000/';
+  readonly url: string = 'https://ship-server-rp.herokuapp.com';
 
   constructor() {
     this.socekt = io(this.url)

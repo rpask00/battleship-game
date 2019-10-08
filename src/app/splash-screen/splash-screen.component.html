@@ -1,7 +1,7 @@
 <div class="splash">
   <div class="main">
     <div class="dashboard" *ngIf='me$ | async as me'>
-      <h1>Ships the Game</h1>
+      <h1>Ships Game</h1>
       <p>ID: {{me.mySocket}}</p>
       <ul *ngIf='sockets$ | async as sockets; else noPlayersFound'>
         <li *ngFor='let socket of sockets'>
